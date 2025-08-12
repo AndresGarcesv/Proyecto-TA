@@ -1,3 +1,5 @@
+import random
+import string
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,7 +13,7 @@ import uvicorn
 # Importaciones locales
 from database import get_db, engine
 from models import Base, Profesora, Asistencia, Clase
-from auth import get_current_user, create_access_token
+from auth import get_current_admin, get_current_user, create_access_token
 from startup_admin import ensure_admin
 from pydantic import BaseModel
 

@@ -11,7 +11,7 @@ from models import Profesora
 from passlib.context import CryptContext
 
 # Configuración desde .env
-SECRET_KEY = os.getenv('SECRET_KEY', 'tu_clave_secreta_muy_segura_cambiala_en_produccion')
+SECRET_KEY = os.getenv('SECRET_KEY', 'change_this_in_production')
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES', '60'))
 
@@ -63,6 +63,6 @@ def get_current_user(
 
 def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
     user = get_current_user(credentials, db)
-    if not getattr(user, 'is_admin', False):
+    if not getattr(user, 'is_admin', True):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Se requieren privilegios de administrador')
     return user
